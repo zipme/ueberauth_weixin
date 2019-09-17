@@ -14,7 +14,9 @@ defmodule Ueberauth.Strategy.Weixin.OAuth do
       access_token: token.access_token,
       openid: token.other_params["openid"]
     }
-
+    fetch_user(client, params)
+  end
+  def fetch_user(client, params) do
     case OAuth2.Client.get!(client, "/sns/userinfo", [], params: params) do
       %{body: %{"errcode" => errcode, "errmsg" => errmsg}} ->
         {:error, %{code: errcode, reason: errmsg}}

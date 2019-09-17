@@ -1,0 +1,10 @@
+{application,ueberauth_weixin,
+             [{applications,[kernel,stdlib,elixir,logger,jason,oauth2,
+                             ueberauth]},
+              {description,"Wechat OAuth2 strategies for Überauth."},
+              {modules,['Elixir.Ueberauth.Strategy.Wechat',
+                        'Elixir.Ueberauth.Strategy.Weixin',
+                        'Elixir.Ueberauth.Strategy.Weixin.OAuth',
+                        'Elixir.Ueberauth.Strategy.Weixin.OAuth.AuthCode']},
+              {registered,[]},
+              {vsn,"1.0.4"}]}.

@@ -34,6 +34,22 @@ defmodule Ueberauth.Strategy.Weixin do
         set_errors!(conn, [error(error.code, error.reason)])
     end
   end
+  def handle_callback!(%Plug.Conn{params: %{"access_token" => access_token, "openid" => openid}} = conn) do
+    params = %{
+      access_token: access_token,
+      openid: openid
+    }
+
+    case fetch_user(client(), params) do
+      {:ok, user} ->
+        conn
+        |> put_private(:wechat_user, user)
+        |> put_private(:wechat_token, OAuth2.AccessToken.new(access_token))
+
+      {:error, error} ->
+        set_errors!(conn, [error(error.code, error.reason)])
+    end
+  end
 
   @impl true
   def handle_cleanup!(conn) do
