@@ -43,8 +43,8 @@ defmodule Ueberauth.Strategy.Weixin do
     case fetch_user(client(), params) do
       {:ok, user} ->
         conn
-        |> put_private(:wechat_user, user)
-        |> put_private(:wechat_token, OAuth2.AccessToken.new(access_token))
+        |> put_private(:weixin_user, user)
+        |> put_private(:weixin_token, OAuth2.AccessToken.new(access_token))
 
       {:error, error} ->
         set_errors!(conn, [error(error.code, error.reason)])

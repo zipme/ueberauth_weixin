@@ -21,7 +21,8 @@ defmodule Ueberauth.Strategy.Weixin.OAuth do
       %{body: %{"errcode" => errcode, "errmsg" => errmsg}} ->
         {:error, %{code: errcode, reason: errmsg}}
 
-      %{body: body} ->
+      %{body: body} = other ->
+        IO.inspect other
         {:ok, body}
     end
   end
@@ -45,6 +46,7 @@ defmodule Ueberauth.Strategy.Weixin.OAuth do
         Application.fetch_env!(:ueberauth, __MODULE__)
         |> Keyword.merge(config())
         |> OAuth2.Client.new()
+        |> OAuth2.Client.put_serializer("text/plain", Jason)
       end
 
       def authorize_url!(params \\ []) do
