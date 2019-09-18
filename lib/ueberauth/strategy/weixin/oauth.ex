@@ -21,8 +21,7 @@ defmodule Ueberauth.Strategy.Weixin.OAuth do
       %{body: %{"errcode" => errcode, "errmsg" => errmsg}} ->
         {:error, %{code: errcode, reason: errmsg}}
 
-      %{body: body} = other ->
-        IO.inspect other
+      %{body: body} ->
         {:ok, body}
     end
   end
