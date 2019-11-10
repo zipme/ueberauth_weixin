@@ -14,6 +14,7 @@ defmodule Ueberauth.Strategy.Weixin do
   def handle_request!(conn) do
     params =
       conn.params
+      |> Map.put_new("state", conn.params["state"])
       |> Map.put_new("redirect_uri", callback_url(conn))
       |> Map.put_new("scope", "snsapi_login")
 
